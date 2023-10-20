@@ -51,28 +51,15 @@ public class SellerDAOjdbc implements SellerDAO {
 					+ "ON seller.DepartmentId = department.Id "
 					+ "WHERE seller.Id = ? ");
 			
-			pst.setInt(1, id);
-			
+			pst.setInt(1, id);			
 			rs = pst.executeQuery(); // por padrão, essa consulta retorna como 0. Sendo assim, criamos uma condição if com rs.next() para pegar os dados desejados
 			
 			if (rs.next()) {
 				
-				Department dep = new Department();
+				Department dep = instantiateDepartment(rs);				
+				Seller seller = instantiateSeller(rs, dep);
 				
-				dep.setId(rs.getInt("DepartmentId"));				
-				dep.setName(rs.getString("DepName"));
-				
-				Seller seller = new Seller();
-				
-				seller.setId(rs.getInt("Id"));
-				seller.setName(rs.getString("Name"));
-				seller.setEmail(rs.getString("Email"));
-				seller.setBaseSalary(rs.getDouble("BaseSalary"));
-				seller.setBirthDate(rs.getDate("BirthDate"));
-				seller.setDepartment(dep);
-				
-				return seller;
-				
+				return seller;				
 			}
 			
 			return null;		
@@ -87,6 +74,28 @@ public class SellerDAOjdbc implements SellerDAO {
 		}
 		
 		}
+
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		Seller seller = new Seller();
+		
+		seller.setId(rs.getInt("Id"));
+		seller.setName(rs.getString("Name"));
+		seller.setEmail(rs.getString("Email"));
+		seller.setBaseSalary(rs.getDouble("BaseSalary"));
+		seller.setBirthDate(rs.getDate("BirthDate"));
+		seller.setDepartment(dep);
+		
+		return seller;
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		
+		dep.setId(rs.getInt("DepartmentId"));				
+		dep.setName(rs.getString("DepName"));
+		
+		return dep;
+	}
 
 	@Override
 	public List<Seller> findAll() {
