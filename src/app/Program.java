@@ -49,13 +49,22 @@ public class Program {
 		sellerDAO.insert(newSeller);
 		System.out.println(newSeller); */
 		
+		/*
 		System.out.println("Atualizando vendedor...");
 		Seller seller = sellerDAO.findById(10);
 		seller.setName("Martha Waine");
 		seller.setEmail("marthaw@gmail.com");
 		sellerDAO.update(seller);
 		
-		System.out.println("Completed");
+		System.out.println("Completed"); */
+		
+		System.out.println("Deletar vendedor");
+		System.out.print("ID do Vendedor: ");
+		int n = sc.nextInt();
+		
+		sellerDAO.deleteById(n);
+		
+		System.out.println("Processo finalizado");
 
 		sc.close();
 	}
