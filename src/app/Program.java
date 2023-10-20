@@ -1,6 +1,6 @@
 package app;
 
-import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -18,9 +18,25 @@ public class Program {
 			
 		SellerDAO sellerDAO = DAOFactory.createSellerDao();
 		
-		System.out.println("==== TEST 1: seller findById ====");		
-		Seller seller = sellerDAO.findById(3);		
+		System.out.print("Digite o ID do vendedor: ");
+		
+		int n = sc.nextInt();
+		
+		Seller seller = sellerDAO.findById(n);		
 		System.out.println(seller);
+		
+		System.out.println("Vendedor por departamento");
+		
+		System.out.print("ID do Departamento: ");
+		int x = sc.nextInt();
+		
+		Department department = new Department(x, null);
+		List <Seller> list = sellerDAO.findByDepartment(department);
+		
+		for (Seller obj : list) {
+			System.out.println(obj);
+		}
+		
 		
 		sc.close();
 	}
