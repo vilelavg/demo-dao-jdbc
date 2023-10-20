@@ -37,6 +37,13 @@ public class Program {
 			System.out.println(obj);
 		}
 		
+		System.out.println("Todos os vendedores");
+		list = sellerDAO.findAll();
+		
+		for (Seller slr : list) {
+			System.out.println(slr);
+		}
+		
 		
 		sc.close();
 	}
