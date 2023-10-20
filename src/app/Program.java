@@ -15,12 +15,12 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		Locale.setDefault(Locale.US);
 		
-		Department dpt = new Department(2, "books");
-		Seller slr = new Seller(1, "bob", "bob@gmail.com", new Date(), 3200.0, dpt);
-		
-		System.out.println(slr);
-		
+			
 		SellerDAO sellerDAO = DAOFactory.createSellerDao();
+		
+		Seller seller = sellerDAO.findById(3);
+		
+		System.out.println(seller);
 		
 		sc.close();
 	}
