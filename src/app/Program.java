@@ -1,14 +1,12 @@
 package app;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 import model.dao.DAOFactory;
+import model.dao.DepartmentDAO;
 import model.dao.SellerDAO;
 import model.entities.Department;
-import model.entities.Seller;
 
 public class Program {
 
@@ -16,7 +14,7 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		Locale.setDefault(Locale.US);
 
-		SellerDAO sellerDAO = DAOFactory.createSellerDao();
+		// SellerDAO sellerDAO = DAOFactory.createSellerDao();
 
 		/* System.out.print("Digite o ID do vendedor: ");
 
@@ -58,13 +56,37 @@ public class Program {
 		
 		System.out.println("Completed"); */
 		
-		System.out.println("Deletar vendedor");
+		/* System.out.println("Deletar vendedor");
 		System.out.print("ID do Vendedor: ");
 		int n = sc.nextInt();
 		
 		sellerDAO.deleteById(n);
 		
-		System.out.println("Processo finalizado");
+		System.out.println("Processo finalizado"); */
+		
+		DepartmentDAO departmentDAO = DAOFactory.createDepartmentDao();
+		
+		/* System.out.println("Criar novo departamento");
+		System.out.print("Nome do dept.: ");
+		String nameDept = sc.next();
+		
+		Department dept = new Department(null, nameDept);
+		
+		departmentDAO.insert(dept); */
+		
+		System.out.println("Atualizar dept.");
+		System.out.print("ID do Dept.: ");
+		int n = sc.nextInt();
+		
+		departmentDAO.findById(n);
+		
+		System.out.print("Novo nome: ");
+		String nameDept = sc.next();
+		
+		Department dept = new Department(n, nameDept);
+		
+		departmentDAO.update(dept);
+		
 
 		sc.close();
 	}
