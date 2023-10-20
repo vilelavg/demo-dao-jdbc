@@ -29,8 +29,7 @@ public class SellerDAOjdbc implements SellerDAO {
 		PreparedStatement pst = null;
 
 		try {
-			pst = conn.prepareStatement("INSERT INTO seller " 
-					+ "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+			pst = conn.prepareStatement("INSERT INTO seller " + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
 					+ "VALUES " + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			pst.setString(1, obj.getName());
@@ -62,7 +61,28 @@ public class SellerDAOjdbc implements SellerDAO {
 
 	@Override
 	public void update(Seller obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+
+		try {
+			pst = conn.prepareStatement("UPDATE seller "
+					+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? " 
+					+ "WHERE Id = ? ");
+
+			pst.setString(1, obj.getName());
+			pst.setString(2, obj.getEmail());
+			pst.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
+			pst.setDouble(4, obj.getBaseSalary());
+			pst.setInt(5, obj.getDepartment().getId());
+			pst.setInt(6, obj.getId());
+			
+			pst.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pst);
+		}
 
 	}
 
@@ -80,9 +100,8 @@ public class SellerDAOjdbc implements SellerDAO {
 
 		try {
 			pst = conn.prepareStatement(
-					"SELECT seller.*,department.Name as DepName " 
-						+ "FROM seller INNER JOIN department "
-						+ "ON seller.DepartmentId = department.Id " + "WHERE seller.Id = ? ");
+					"SELECT seller.*,department.Name as DepName " + "FROM seller INNER JOIN department "
+							+ "ON seller.DepartmentId = department.Id " + "WHERE seller.Id = ? ");
 
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -137,9 +156,8 @@ public class SellerDAOjdbc implements SellerDAO {
 
 		try {
 			pst = conn.prepareStatement(
-					"SELECT seller.*,department.Name as DepName " 
-						+ "FROM seller INNER JOIN department "
-						+ "ON seller.DepartmentId = department.Id " + "ORDER BY Name ");
+					"SELECT seller.*,department.Name as DepName " + "FROM seller INNER JOIN department "
+							+ "ON seller.DepartmentId = department.Id " + "ORDER BY Name ");
 
 			rs = pst.executeQuery();
 
@@ -179,9 +197,8 @@ public class SellerDAOjdbc implements SellerDAO {
 
 		try {
 			pst = conn.prepareStatement(
-					"SELECT seller.*,department.Name as DepName " 
-						+ "FROM seller INNER JOIN department "
-						+ "ON seller.DepartmentId = department.Id " + "WHERE DepartmentId = ? " + "ORDER BY Name ");
+					"SELECT seller.*,department.Name as DepName " + "FROM seller INNER JOIN department "
+							+ "ON seller.DepartmentId = department.Id " + "WHERE DepartmentId = ? " + "ORDER BY Name ");
 
 			pst.setInt(1, department.getId());
 			rs = pst.executeQuery();

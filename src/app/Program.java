@@ -18,12 +18,12 @@ public class Program {
 
 		SellerDAO sellerDAO = DAOFactory.createSellerDao();
 
-		System.out.print("Digite o ID do vendedor: ");
+		/* System.out.print("Digite o ID do vendedor: ");
 
-		int n = sc.nextInt();
+		int n = sc.nextInt(); 
 
-		Seller seller = sellerDAO.findById(n);
-		System.out.println(seller);
+		Seller seller = sellerDAO.findById(3);
+		 System.out.println(seller);
 
 		System.out.println("Vendedor por departamento");
 
@@ -47,7 +47,15 @@ public class Program {
 		System.out.println("inserindo vendedor");
 		Seller newSeller = new Seller(null, "Greg Mendez", "greg@gmail.com", new Date(), 3590.0, department);
 		sellerDAO.insert(newSeller);
-		System.out.println(newSeller);
+		System.out.println(newSeller); */
+		
+		System.out.println("Atualizando vendedor...");
+		Seller seller = sellerDAO.findById(10);
+		seller.setName("Martha Waine");
+		seller.setEmail("marthaw@gmail.com");
+		sellerDAO.update(seller);
+		
+		System.out.println("Completed");
 
 		sc.close();
 	}
