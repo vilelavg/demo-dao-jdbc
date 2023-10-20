@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
+import model.dao.DAOFactory;
+import model.dao.SellerDAO;
 import model.entities.Department;
 import model.entities.Seller;
 
@@ -17,6 +19,8 @@ public class Program {
 		Seller slr = new Seller(1, "bob", "bob@gmail.com", new Date(), 3200.0, dpt);
 		
 		System.out.println(slr);
+		
+		SellerDAO sellerDAO = DAOFactory.createSellerDao();
 		
 		sc.close();
 	}
